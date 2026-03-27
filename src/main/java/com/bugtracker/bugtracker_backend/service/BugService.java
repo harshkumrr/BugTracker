@@ -49,6 +49,10 @@ public class BugService {
         Bug bug = bugRepository.findById(id).orElseThrow();
         String oldStatus = bug.getStatus();
 
+        if (oldStatus != null && oldStatus.equals(newStatus)) {
+            return bug;
+        }
+
         BugHistory history = new BugHistory();
         history.setBugId(id);
         history.setChangedBy(changedBy);
@@ -82,4 +86,3 @@ public class BugService {
         bugRepository.deleteById(id);
     }
 }
-
